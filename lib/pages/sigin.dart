@@ -9,8 +9,33 @@ class Signin extends StatelessWidget{
           title: Text('Sign in',style: TextStyle(color: Colors.teal),),
           centerTitle: true,
         ),
-        body: Container(),
+        body: Container(
+          child:Form(
+          child: Column(
+            children: <Widget>[
+              username(),
+              password(),
+              submit(),
+            ],
+          ),
+          ),
+        ),
       ),
     );
+  }
+  Widget username(){
+  return TextFormField(
+
+  );
+  }
+  Widget password(){
+  return TextFormField(
+
+  );
+  }
+  Widget submit(){
+  return RaisedButton(
+    
+  );
   }
 }
