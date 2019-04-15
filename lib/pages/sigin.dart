@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
 class Signin extends StatelessWidget {
+
+final formKey = GlobalKey<FormState>();
+
   Widget build(context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -15,7 +18,10 @@ class Signin extends StatelessWidget {
           centerTitle: true,
         ),
         body: Container(
+          padding: EdgeInsets.all(16.0),
           child: Form(
+            key: formKey,
+            child:SingleChildScrollView(
             child: Column(
               children: <Widget>[
                 username(),
@@ -30,6 +36,7 @@ class Signin extends StatelessWidget {
               ],
             ),
           ),
+        ),
         ),
       ),
     );
