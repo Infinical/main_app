@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-void main(){
+void main() {
   runApp(SignUp());
 }
 
-class SignUp extends StatelessWidget{
+class SignUp extends StatelessWidget {
   @override
-  Widget build(context){
+  Widget build(context) {
     final formTitle = 'Sign Up';
 
     return MaterialApp(
@@ -15,7 +15,10 @@ class SignUp extends StatelessWidget{
       home: Scaffold(
         backgroundColor: Colors.teal,
         appBar: AppBar(
-          title: Text(formTitle, style: TextStyle(color: Colors.teal),),
+          title: Text(
+            formTitle,
+            style: TextStyle(color: Colors.teal),
+          ),
         ),
         body: SignUpForm(),
       ),
@@ -34,92 +37,93 @@ class SignUpFormState extends State<SignUpForm> {
   final _formKey = GlobalKey<FormState>();
 
   @override
-
-  Widget build (context) {
-    return Form (
-      key: _formKey,
-      child: SingleChildScrollView(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-          TextFormField(
-            decoration: InputDecoration(
-              border: OutlineInputBorder(borderRadius: BorderRadius.circular(20.0),
-              borderSide: BorderSide(color: Colors.white)
-              ),
-              labelText: 'Enter your firstname',
-              hintText: 'Enter your firstname'
+  Widget build(context) {
+    return Center(
+    child: Container(
+      padding: EdgeInsets.all(18.0),
+      child: Form(
+        key: _formKey,
+        child: SingleChildScrollView(
+            child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            TextFormField(
+              decoration: InputDecoration(
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20.0),
+                      borderSide: BorderSide(color: Colors.white)),
+                  labelText: 'Enter your firstname',
+                  hintText: 'Enter your firstname'),
+              validator: (value) {
+                if (value.isEmpty) {
+                  return 'Please enter your first name';
+                }
+              },
             ),
-            validator: (value) {
-              if (value.isEmpty) {
-                return 'Please enter your first name';
-              }
-            },
-          ),
-          SizedBox(height: 15.0),
-           TextFormField(
-            decoration: InputDecoration(
-              border: OutlineInputBorder(borderRadius: BorderRadius.circular(20.0),
-              borderSide: BorderSide(color: Colors.white)
-              ),
-              labelText: 'Enter your lastname',
-              hintText: 'Enter your lastname'
+            SizedBox(height: 15.0),
+            TextFormField(
+              decoration: InputDecoration(
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20.0),
+                      borderSide: BorderSide(color: Colors.white)),
+                  labelText: 'Enter your lastname',
+                  hintText: 'Enter your lastname'),
+              validator: (value) {
+                if (value.isEmpty) {
+                  return 'Please enter your last name';
+                }
+              },
             ),
-            validator: (value) {
-              if (value.isEmpty) {
-                return 'Please enter your last name';
-              }
-            },
-          ),
-          SizedBox(height: 15.0),
-           TextFormField(
-             obscureText: true,
-            decoration: InputDecoration(
-              border: OutlineInputBorder(borderRadius: BorderRadius.circular(20.0),
-              borderSide: BorderSide(color: Colors.white)
-              ),
-              labelText: 'Enter your password',
-              hintText: 'Enter your password'
+            SizedBox(height: 15.0),
+            TextFormField(
+              obscureText: true,
+              decoration: InputDecoration(
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20.0),
+                      borderSide: BorderSide(color: Colors.white)),
+                  labelText: 'Enter your password',
+                  hintText: 'Enter your password'),
+              validator: (value) {
+                if (value.isEmpty) {
+                  return 'Please enter your password';
+                }
+              },
             ),
-            validator: (value) {
-              if (value.isEmpty) {
-                return 'Please enter your password';
-              }
-            },
-          ),
-          SizedBox(height: 15.0),
-           TextFormField(
-             obscureText: true,
-            decoration: InputDecoration(
-              border: OutlineInputBorder(borderRadius: BorderRadius.circular(20.0),
-              borderSide: BorderSide(color: Colors.white)
-              ),
-              labelText: 'Confirm your Password',
-              hintText: 'Confirm your Password'
+            SizedBox(height: 15.0),
+            TextFormField(
+              obscureText: true,
+              decoration: InputDecoration(
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20.0),
+                      borderSide: BorderSide(color: Colors.white)),
+                  labelText: 'Confirm your Password',
+                  hintText: 'Confirm your Password'),
+              validator: (value) {
+                if (value.isEmpty) {
+                  return 'Confirm Password';
+                }
+              },
             ),
-            validator: (value) {
-              if (value.isEmpty) {
-                return 'Confirm Password';
-              }
-            },
-          ),
-          SizedBox(height: 15.0),
+            SizedBox(height: 15.0),
             RaisedButton(
-            onPressed: () {
-              if (_formKey.currentState.validate()){
-                Scaffold.of(context)
-                    .showSnackBar(SnackBar(content: Text('Signing In ..')));
-              }
-            },
-            child: Text('Sign Up', style: TextStyle(color: Colors.white),),
-            shape: BeveledRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(10.0))
-            ),
-            color: Colors.teal,
-          )
-        ],
-      )
+              onPressed: () {
+                if (_formKey.currentState.validate()) {
+                  Scaffold.of(context)
+                      .showSnackBar(SnackBar(content: Text('Signing In ..')));
+                }
+              },
+              child: Text(
+                'Sign Up',
+                style: TextStyle(color: Colors.teal),
+              ),
+              shape: BeveledRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(10.0))),
+              color: Colors.white,
+            )
+          ],
+        )),
       ),
+    )
     );
   }
 }
