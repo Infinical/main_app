@@ -11,14 +11,12 @@ class SignUp extends StatelessWidget {
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(primaryColor: Colors.white),
+      theme: ThemeData(primaryColor: Colors.teal),
       home: Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
-          title: Text(
-            formTitle,
-            style: TextStyle(color: Colors.teal),
-          ),
+          title: Text(formTitle,
+              style: TextStyle(color: Colors.white, fontSize: 25)),
           centerTitle: true,
         ),
         body: SignUpForm(),
@@ -40,7 +38,7 @@ class SignUpFormState extends State<SignUpForm> {
   @override
   Widget build(context) {
     return Center(
-    child: Container(
+        child: Container(
       padding: EdgeInsets.all(18.0),
       child: Form(
         key: _formKey,
@@ -109,13 +107,20 @@ class SignUpFormState extends State<SignUpForm> {
             RaisedButton(
               onPressed: () {
                 if (_formKey.currentState.validate()) {
-                  Scaffold.of(context)
-                      .showSnackBar(SnackBar(content: Text('Signing Up ..')));
+                  Scaffold.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(
+                        'Signing Up ...',
+                        style: TextStyle(color: Colors.white, fontSize: 12),
+                      ),
+                      backgroundColor: Colors.teal,
+                    ),
+                  );
                 }
               },
               child: Text(
                 'Sign Up',
-                style: TextStyle(color: Colors.white),
+                style: TextStyle(color: Colors.white, fontSize: 25),
               ),
               shape: BeveledRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(10.0))),
@@ -124,7 +129,6 @@ class SignUpFormState extends State<SignUpForm> {
           ],
         )),
       ),
-    )
-    );
+    ));
   }
 }
