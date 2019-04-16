@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+
 
 void main() {
   runApp(SignUp());
@@ -102,7 +104,7 @@ class SignUpFormState extends State<SignUpForm> {
                   return 'Confirm Password';
                 }
               },
-            ),
+            )
             SizedBox(height: 15.0),
             RaisedButton(
               onPressed: () {
@@ -131,4 +133,19 @@ class SignUpFormState extends State<SignUpForm> {
       ),
     ));
   }
+
+  bool validateSave(){
+    final form = _formKey;
+    if(validateSave()){
+      return true;
+    }
+    return false;
+  }
+
+void validateSubmit(){
+  if(validateSave()){
+    return true;
+  }
+}
+
 }
