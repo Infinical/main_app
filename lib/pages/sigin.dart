@@ -84,7 +84,7 @@ class Signin extends StatelessWidget with ValidationMixin {
     );
   }
 
-  Widget submit() {
+  Widget submit(context) {
     return RaisedButton(
       shape: BeveledRectangleBorder(borderRadius: BorderRadius.circular(10)),
       child: Text(
@@ -92,7 +92,12 @@ class Signin extends StatelessWidget with ValidationMixin {
         style: TextStyle(color: Colors.white, fontSize: 25.0),
       ),
       color: Colors.teal,
-      onPressed: () {},
+      onPressed: () {
+        Scaffold.of(context).showSnackBar(
+          SnackBar(
+          content:  Text('Signing in...', style: TextStyle(color: Colors.white, fontSize: 12),),
+          backgroundColor: Colors.teal) );
+      },
     );
   }
 }
