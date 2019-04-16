@@ -13,7 +13,7 @@ class SignUp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(primaryColor: Colors.white),
       home: Scaffold(
-        backgroundColor: Colors.teal,
+        backgroundColor: Colors.white,
         appBar: AppBar(
           title: Text(
             formTitle,
@@ -109,16 +109,16 @@ class SignUpFormState extends State<SignUpForm> {
               onPressed: () {
                 if (_formKey.currentState.validate()) {
                   Scaffold.of(context)
-                      .showSnackBar(SnackBar(content: Text('Signing In ..')));
+                      .showSnackBar(SnackBar(content: Text('Signing Up ..')));
                 }
               },
               child: Text(
                 'Sign Up',
-                style: TextStyle(color: Colors.teal),
+                style: TextStyle(color: Colors.white),
               ),
               shape: BeveledRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(10.0))),
-              color: Colors.white,
+              color: Colors.teal,
             )
           ],
         )),
