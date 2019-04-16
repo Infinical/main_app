@@ -37,10 +37,10 @@ class SignUpForm extends StatefulWidget {
 class SignUpFormState extends State<SignUpForm> with ValidationMixin {
   final _formKey = GlobalKey<FormState>();
 
-  String username;
-  String email;
-  String password;
-  String passconfirm;
+  String username = '';
+  String email = '';
+  String password = '';
+  String passconfirm = '';
 
   @override
   Widget build(context) {
@@ -66,56 +66,46 @@ class SignUpFormState extends State<SignUpForm> with ValidationMixin {
                 }),
             SizedBox(height: 15.0),
             TextFormField(
-              decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20.0),
-                      borderSide: BorderSide(color: Colors.white)),
-                  labelText: 'Enter your email',
-                  hintText: 'Enter your email'),
-               validator: validateEmail,
+                decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20.0),
+                        borderSide: BorderSide(color: Colors.white)),
+                    labelText: 'Enter your email',
+                    hintText: 'Enter your email'),
+                validator: validateEmail,
                 onSaved: (String email) {
                   email = email;
                 }),
             SizedBox(height: 15.0),
             TextFormField(
-              obscureText: true,
-              decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20.0),
-                      borderSide: BorderSide(color: Colors.white)),
-                  labelText: 'Enter your password',
-                  hintText: 'Enter your password'),
-               validator: validatePass,
+                obscureText: true,
+                decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20.0),
+                        borderSide: BorderSide(color: Colors.white)),
+                    labelText: 'Enter your password',
+                    hintText: 'Enter your password'),
+                validator: validatePass,
                 onSaved: (String password) {
                   password = password;
                 }),
             SizedBox(height: 15.0),
             TextFormField(
-              obscureText: true,
-              decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20.0),
-                      borderSide: BorderSide(color: Colors.white)),
-                  labelText: 'Confirm your Password',
-                  hintText: 'Confirm your Password'),
-               validator: validateConfirmPass,
+                obscureText: true,
+                decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20.0),
+                        borderSide: BorderSide(color: Colors.white)),
+                    labelText: 'Confirm your Password',
+                    hintText: 'Confirm your Password'),
+                validator: validateConfirmPass,
                 onSaved: (String passconfirm) {
                   passconfirm = passconfirm;
                 }),
             SizedBox(height: 15.0),
             RaisedButton(
               onPressed: () {
-                if (_formKey.currentState.validate()) {
-                  Scaffold.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text(
-                        'Signing Up ...',
-                        style: TextStyle(color: Colors.white, fontSize: 12),
-                      ),
-                      backgroundColor: Colors.teal,
-                    ),
-                  );
-                }
+                validateSubmit;
               },
               child: Text(
                 'Sign Up',
@@ -131,4 +121,25 @@ class SignUpFormState extends State<SignUpForm> with ValidationMixin {
     ));
   }
 
+  bool validateSave() {
+    final form = _formKey.currentState;
+    if (form.validate()) {
+      form.save();
+      return true;
+    }
+    return false;
+  }
+
+  void validateSubmit() async {
+    if (validateSave()) {
+      var url= 'https://peaceful-citadel-94359.herokuapp.com/api/v1/auth';
+     var response = await http.post(url,
+          body: {
+            "email": email,
+            "password": password,
+            "passconfirm": passconfirm
+          });
+      print('${response.body}');
+    }
+  }
 }
