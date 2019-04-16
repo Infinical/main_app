@@ -10,13 +10,13 @@ class Signin extends StatelessWidget with ValidationMixin {
   Widget build(context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(primaryColor: Colors.white),
+      theme: ThemeData(primaryColor: Colors.teal),
       home: Scaffold(
-        backgroundColor: Colors.teal,
+        backgroundColor: Colors.white,
         appBar: AppBar(
           title: Text(
             'Sign in',
-            style: TextStyle(color: Colors.teal),
+            style: TextStyle(color: Colors.white,fontSize: 25),
           ),
           centerTitle: true,
         ),
@@ -49,7 +49,7 @@ class Signin extends StatelessWidget with ValidationMixin {
 
   Widget username() {
     return TextFormField(
-      style: TextStyle(color: Colors.white),
+      style: TextStyle(color: Colors.teal),
       decoration: InputDecoration(
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
         labelText: 'Username',
@@ -64,7 +64,7 @@ class Signin extends StatelessWidget with ValidationMixin {
 
   Widget password() {
     return TextFormField(
-      style: TextStyle(color: Colors.white),
+      style: TextStyle(color: Colors.teal),
       obscureText: true,
       decoration: InputDecoration(
         border: OutlineInputBorder(
@@ -89,9 +89,9 @@ class Signin extends StatelessWidget with ValidationMixin {
       shape: BeveledRectangleBorder(borderRadius: BorderRadius.circular(10)),
       child: Text(
         'Submit',
-        style: TextStyle(color: Colors.teal, fontSize: 20.0),
+        style: TextStyle(color: Colors.white, fontSize: 25.0),
       ),
-      color: Colors.white,
+      color: Colors.teal,
       onPressed: () {},
     );
   }
