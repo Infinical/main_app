@@ -19,6 +19,7 @@ class SignUp extends StatelessWidget {
             formTitle,
             style: TextStyle(color: Colors.teal),
           ),
+          centerTitle: true,
         ),
         body: SignUpForm(),
       ),
