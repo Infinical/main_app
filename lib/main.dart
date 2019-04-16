@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-
+import 'package:lib/mixins/validation_mixins.dart';
 
 void main() {
   runApp(SignUp());
@@ -34,8 +34,13 @@ class SignUpForm extends StatefulWidget {
   }
 }
 
-class SignUpFormState extends State<SignUpForm> {
+class SignUpFormState extends State<SignUpForm> with ValidationMixin {
   final _formKey = GlobalKey<FormState>();
+
+  String username;
+  String email;
+  String password;
+  String passconfirm;
 
   @override
   Widget build(context) {
@@ -49,32 +54,28 @@ class SignUpFormState extends State<SignUpForm> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             TextFormField(
-              decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20.0),
-                      borderSide: BorderSide(color: Colors.white)),
-                  labelText: 'Enter your firstname',
-                  hintText: 'Enter your firstname'),
-              validator: (value) {
-                if (value.isEmpty) {
-                  return 'Please enter your first name';
-                }
-              },
-            ),
+                decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20.0),
+                        borderSide: BorderSide(color: Colors.white)),
+                    labelText: 'Enter your username',
+                    hintText: 'Enter your username'),
+                validator: validateName,
+                onSaved: (String name) {
+                  username = name;
+                }),
             SizedBox(height: 15.0),
             TextFormField(
               decoration: InputDecoration(
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20.0),
                       borderSide: BorderSide(color: Colors.white)),
-                  labelText: 'Enter your lastname',
-                  hintText: 'Enter your lastname'),
-              validator: (value) {
-                if (value.isEmpty) {
-                  return 'Please enter your last name';
-                }
-              },
-            ),
+                  labelText: 'Enter your email',
+                  hintText: 'Enter your email'),
+               validator: validateEmail,
+                onSaved: (String email) {
+                  email = email;
+                }),
             SizedBox(height: 15.0),
             TextFormField(
               obscureText: true,
@@ -84,12 +85,10 @@ class SignUpFormState extends State<SignUpForm> {
                       borderSide: BorderSide(color: Colors.white)),
                   labelText: 'Enter your password',
                   hintText: 'Enter your password'),
-              validator: (value) {
-                if (value.isEmpty) {
-                  return 'Please enter your password';
-                }
-              },
-            ),
+               validator: validatePass,
+                onSaved: (String password) {
+                  password = password;
+                }),
             SizedBox(height: 15.0),
             TextFormField(
               obscureText: true,
@@ -99,12 +98,10 @@ class SignUpFormState extends State<SignUpForm> {
                       borderSide: BorderSide(color: Colors.white)),
                   labelText: 'Confirm your Password',
                   hintText: 'Confirm your Password'),
-              validator: (value) {
-                if (value.isEmpty) {
-                  return 'Confirm Password';
-                }
-              },
-            )
+               validator: validateConfirmPass,
+                onSaved: (String passconfirm) {
+                  passconfirm = passconfirm;
+                }),
             SizedBox(height: 15.0),
             RaisedButton(
               onPressed: () {
@@ -133,19 +130,5 @@ class SignUpFormState extends State<SignUpForm> {
       ),
     ));
   }
-
-  bool validateSave(){
-    final form = _formKey;
-    if(validateSave()){
-      return true;
-    }
-    return false;
-  }
-
-void validateSubmit(){
-  if(validateSave()){
-    return true;
-  }
-}
 
 }
