@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:lib/mixins/validation_mixins.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'pages/signin.dart';
 
 void main() {
   runApp(SignUp());
@@ -141,12 +142,16 @@ class SignUpFormState extends State<SignUpForm> with ValidationMixin {
         "password": password,
         "passconfirm": passconfirm
       }).then((response) {
-        //print(response.statusCode);
+        if(response.statusCode==200){
+        Navigator.push(context,MaterialPageRoute(builder: (context)=> Signin()));
         print(response.body);
-      });
+       } });
       } catch (e) {
+        print(e);
         Fluttertoast.showToast(
-          msg: e
+          msg: e.message,
+          toastLength: Toast.LENGTH_LONG,
+          backgroundColor: Colors.teal
         );
       }
       
