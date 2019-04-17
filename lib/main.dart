@@ -73,8 +73,8 @@ class SignUpFormState extends State<SignUpForm> with ValidationMixin {
                     labelText: 'Enter your email',
                     hintText: 'Enter your email'),
                 validator: validateEmail,
-                onSaved: (String email) {
-                  email = email;
+                onSaved: (String value) {
+                  email = value;
                 }),
             SizedBox(height: 15.0),
             TextFormField(
@@ -86,8 +86,8 @@ class SignUpFormState extends State<SignUpForm> with ValidationMixin {
                     labelText: 'Enter your password',
                     hintText: 'Enter your password'),
                 validator: validatePass,
-                onSaved: (String password) {
-                  password = password;
+                onSaved: (String value) {
+                  password = value;
                 }),
             SizedBox(height: 15.0),
             TextFormField(
@@ -99,13 +99,13 @@ class SignUpFormState extends State<SignUpForm> with ValidationMixin {
                     labelText: 'Confirm your Password',
                     hintText: 'Confirm your Password'),
                 validator: validateConfirmPass,
-                onSaved: (String passconfirm) {
-                  passconfirm = passconfirm;
+                onSaved: (String value) {
+                  passconfirm = value;
                 }),
             SizedBox(height: 15.0),
             RaisedButton(
               onPressed: () {
-                validateSubmit;
+                validateSubmit();
               },
               child: Text(
                 'Sign Up',
@@ -132,14 +132,16 @@ class SignUpFormState extends State<SignUpForm> with ValidationMixin {
 
   void validateSubmit() async {
     if (validateSave()) {
-      var url= 'https://peaceful-citadel-94359.herokuapp.com/api/v1/auth';
-     var response = await http.post(url,
-          body: {
-            "email": email,
-            "password": password,
-            "passconfirm": passconfirm
-          });
-      print('${response.body}');
+      var url = 'https://peaceful-citadel-94359.herokuapp.com/api/v1/auth';
+      var response = await http.post(url, body: {
+        "username": username,
+        "email": email,
+        "password": password,
+        "passconfirm": passconfirm
+      }).then((response) {
+        //print(response.statusCode);
+        print(response.body);
+      });
     }
   }
 }
