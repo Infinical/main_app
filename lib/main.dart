@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:lib/mixins/validation_mixins.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 void main() {
   runApp(SignUp());
@@ -132,7 +133,8 @@ class SignUpFormState extends State<SignUpForm> with ValidationMixin {
 
   void validateSubmit() async {
     if (validateSave()) {
-      var url = 'https://peaceful-citadel-94359.herokuapp.com/api/v1/auth';
+      try {
+        var url = 'https://peaceful-citadel-94359.herokuapp.com/api/v1/auth';
       var response = await http.post(url, body: {
         "username": username,
         "email": email,
@@ -142,6 +144,12 @@ class SignUpFormState extends State<SignUpForm> with ValidationMixin {
         //print(response.statusCode);
         print(response.body);
       });
+      } catch (e) {
+        Fluttertoast.showToast(
+          msg: e
+        );
+      }
+      
     }
   }
 }
