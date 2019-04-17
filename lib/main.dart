@@ -3,6 +3,7 @@ import 'package:http/http.dart' as http;
 import 'package:lib/mixins/validation_mixins.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'pages/signin.dart';
+import 'dart:convert';
 
 void main() {
   runApp(SignUp());
@@ -133,7 +134,6 @@ class SignUpFormState extends State<SignUpForm> with ValidationMixin {
 
   validateSubmit() async {
     if (validateSave()) {
-      try {
         await http.post(
             'https://peaceful-citadel-94359.herokuapp.com/api/v1/auth',
             body: {
@@ -146,17 +146,19 @@ class SignUpFormState extends State<SignUpForm> with ValidationMixin {
           if (response.statusCode == 200) {
             Navigator.push(
                 context, MaterialPageRoute(builder: (context) => Signin()));
+          } else {
+              var cont = jsonDecode(response.body);
+              var acce= cont["errors"];
+              var full = acce["full_messages"];
+              var cal = jsonEncode(full);
+              print(cal);
+              Fluttertoast.showToast(
+                msg: cal,
+                backgroundColor: Colors.teal,
+                fontSize: 20,
+              );
           }
         });
-      } catch (e) {
-
-        Fluttertoast.showToast(
-            msg: e.message,
-            backgroundColor: Colors.pinkAccent,
-            toastLength: Toast.LENGTH_LONG);
-
-
-      }
     }
   }
 }
