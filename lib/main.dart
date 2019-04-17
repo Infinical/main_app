@@ -132,29 +132,31 @@ class SignUpFormState extends State<SignUpForm> with ValidationMixin {
     return false;
   }
 
-  void validateSubmit() async {
+   validateSubmit() async {
+       
     if (validateSave()) {
       try {
-        var url = 'https://peaceful-citadel-94359.herokuapp.com/api/v1/auth';
-      var response = await http.post(url, body: {
-        "username": username,
-        "email": email,
-        "password": password,
-        "passconfirm": passconfirm
-      }).then((response) {
-        if(response.statusCode==200){
-        Navigator.push(context,MaterialPageRoute(builder: (context)=> Signin()));
-        print(response.body);
-       } });
+        
+         await http.post('https://peaceful-citadel-94359.herokuapp.com/api/v1/auth', body: {
+          "username": username,
+          "email": email,
+          "password": password,
+          "passconfirm": passconfirm
+        }).then((response) {
+         // print(response.body);
+          if (response.statusCode == 200) {
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => Signin()));
+          }
+        });
       } catch (e) {
-        print(e);
+       
         Fluttertoast.showToast(
-          msg: e.message,
-          toastLength: Toast.LENGTH_LONG,
-          backgroundColor: Colors.teal
-        );
+            msg: e.message,
+            toastLength: Toast.LENGTH_LONG,
+            backgroundColor: Colors.teal);
+             
       }
-      
     }
   }
 }
