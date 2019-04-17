@@ -106,9 +106,7 @@ class SignUpFormState extends State<SignUpForm> with ValidationMixin {
                 }),
             SizedBox(height: 15.0),
             RaisedButton(
-              onPressed: () {
-                validateSubmit();
-              },
+              onPressed: validateSubmit,
               child: Text(
                 'Sign Up',
                 style: TextStyle(color: Colors.white, fontSize: 25),
@@ -132,30 +130,28 @@ class SignUpFormState extends State<SignUpForm> with ValidationMixin {
     return false;
   }
 
-   validateSubmit() async {
-       
+  validateSubmit() async {
     if (validateSave()) {
       try {
-        
-         await http.post('https://peaceful-citadel-94359.herokuapp.com/api/v1/auth', body: {
-          "username": username,
-          "email": email,
-          "password": password,
-          "passconfirm": passconfirm
-        }).then((response) {
-         // print(response.body);
+        await http.post(
+            'https://peaceful-citadel-94359.herokuapp.com/api/v1/auth',
+            body: {
+              "username": username,
+              "email": email,
+              "password": password,
+              "passconfirm": passconfirm
+            }).then((response) {
+          print(response.body);
           if (response.statusCode == 200) {
             Navigator.push(
                 context, MaterialPageRoute(builder: (context) => Signin()));
           }
         });
       } catch (e) {
-       
         Fluttertoast.showToast(
             msg: e.message,
-            toastLength: Toast.LENGTH_LONG,
-            backgroundColor: Colors.teal);
-             
+            backgroundColor: Colors.pinkAccent,
+            toastLength: Toast.LENGTH_LONG);
       }
     }
   }
