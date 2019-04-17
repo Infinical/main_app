@@ -130,7 +130,11 @@ class SignUpFormState extends State<SignUpForm> with ValidationMixin {
     return false;
   }
 
+<<<<<<< Updated upstream
   validateSubmit() async {
+=======
+  void validateSubmit() async {
+>>>>>>> Stashed changes
     if (validateSave()) {
       try {
         await http.post(
@@ -148,10 +152,18 @@ class SignUpFormState extends State<SignUpForm> with ValidationMixin {
           }
         });
       } catch (e) {
+<<<<<<< Updated upstream
         Fluttertoast.showToast(
             msg: e.message,
             backgroundColor: Colors.pinkAccent,
             toastLength: Toast.LENGTH_LONG);
+=======
+        print ('Error');
+        // Fluttertoast.showToast(
+        //     msg: e.message,
+        //     toastLength: Toast.LENGTH_LONG,
+        //     backgroundColor: Colors.teal);
+>>>>>>> Stashed changes
       }
     }
   }
