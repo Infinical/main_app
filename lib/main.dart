@@ -131,34 +131,37 @@ class SignUpFormState extends State<SignUpForm> with ValidationMixin {
     return false;
   }
 
-
   validateSubmit() async {
     if (validateSave()) {
-        await http.post(
-            'https://peaceful-citadel-94359.herokuapp.com/api/v1/auth',
-            body: {
-              "username": username,
-              "email": email,
-              "password": password,
-              "passconfirm": passconfirm
-            }).then((response) {
-          print(response.body);
-          if (response.statusCode == 200) {
-            Navigator.push(
-                context, MaterialPageRoute(builder: (context) => Signin()));
-          } else {
-              var cont = jsonDecode(response.body);
-              var acce= cont["errors"];
-              var full = acce["full_messages"];
-              var cal = jsonEncode(full);
-              print(cal);
-              Fluttertoast.showToast(
-                msg: cal,
-                backgroundColor: Colors.teal,
-                fontSize: 20,
-              );
+      await http.post(
+          'https://peaceful-citadel-94359.herokuapp.com/api/v1/auth',
+          body: {
+            "username": username,
+            "email": email,
+            "password": password,
+            "passconfirm": passconfirm
+          }).then((response) {
+        print(response.body);
+        if (response.statusCode == 200) {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => Signin()));
+        } else {
+          var decode = jsonDecode(response.body);
+          var accesErrors = decode["errors"];
+          var accesMsgs = accesErrors["full_messages"];
+          var encode = JsonEncoder.withIndent("    ").convert(accesMsgs);
+          print(encode);
+          List<dynamic> list =accesMsgs;
+          for (var l in list) {
+           Fluttertoast.showToast(
+              msg: l,
+              backgroundColor: Colors.teal,
+              fontSize: 20,
+              toastLength: Toast.LENGTH_LONG,
+            );
           }
-        });
+        }
+      });
     }
   }
 }
