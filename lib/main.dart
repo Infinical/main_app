@@ -56,6 +56,7 @@ class SignUpFormState extends State<SignUpForm> with ValidationMixin {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             TextFormField(
+              style: TextStyle(color: Colors.teal),
                 decoration: InputDecoration(
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(20.0),
@@ -68,6 +69,7 @@ class SignUpFormState extends State<SignUpForm> with ValidationMixin {
                 }),
             SizedBox(height: 15.0),
             TextFormField(
+              style: TextStyle(color: Colors.teal),
                 decoration: InputDecoration(
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(20.0),
@@ -80,6 +82,7 @@ class SignUpFormState extends State<SignUpForm> with ValidationMixin {
                 }),
             SizedBox(height: 15.0),
             TextFormField(
+              style: TextStyle(color: Colors.teal),
                 obscureText: true,
                 decoration: InputDecoration(
                     border: OutlineInputBorder(
@@ -93,6 +96,7 @@ class SignUpFormState extends State<SignUpForm> with ValidationMixin {
                 }),
             SizedBox(height: 15.0),
             TextFormField(
+              style: TextStyle(color: Colors.teal),
                 obscureText: true,
                 decoration: InputDecoration(
                     border: OutlineInputBorder(
@@ -114,7 +118,18 @@ class SignUpFormState extends State<SignUpForm> with ValidationMixin {
               shape: BeveledRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(10.0))),
               color: Colors.teal,
-            )
+            ),
+            SizedBox(height: 15.0),
+             RaisedButton(
+              onPressed: redirector,
+              child: Text(
+                'Sign In',
+                style: TextStyle(color: Colors.white, fontSize: 25),
+              ),
+              shape: BeveledRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(10.0))),
+              color: Colors.teal,
+            ),
           ],
         )),
       ),
@@ -159,4 +174,9 @@ class SignUpFormState extends State<SignUpForm> with ValidationMixin {
       }
     }
   }
-}
+
+  redirector(){
+     Navigator.push(
+                context, MaterialPageRoute(builder: (context) => Signin()));
+          }
+  }
