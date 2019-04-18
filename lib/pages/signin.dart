@@ -1,34 +1,51 @@
 import 'package:flutter/material.dart';
 import 'package:lib/mixins/validation_mixins.dart';
+import 'package:http/http.dart' as http;
 
-class Signin extends StatelessWidget with ValidationMixin {
-  final formKey = GlobalKey<FormState>();
-
-  String name;
-  String pass;
-
+class Signin extends StatelessWidget {
+  @override
   Widget build(context) {
+    final formTitle = 'Sign in';
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(primaryColor: Colors.teal),
       home: Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
-          title: Text(
-            'Sign in',
-            style: TextStyle(color: Colors.white,fontSize: 25),
-          ),
+          title: Text(formTitle,
+              style: TextStyle(color: Colors.white, fontSize: 25)),
           centerTitle: true,
         ),
-        body: Center(
+        body: SigninForm(),
+      ),
+    );
+  }
+}
+
+class SigninForm extends StatefulWidget {
+  @override
+  SigninFormState createState() {
+    return SigninFormState();
+  }
+}
+
+class SigninFormState extends State<SigninForm>  with ValidationMixin {
+  final _formKey = GlobalKey<FormState>();
+
+  String mail = '';
+  String pass = '';
+
+  Widget build(context) {
+    return Center(
           child: Container(
             padding: EdgeInsets.all(16.0),
             child: Form(
-              key: formKey,
+              key: _formKey,
               child: SingleChildScrollView(
                 child: Column(
                   children: <Widget>[
-                    username(),
+                    email(),
                     SizedBox(
                       height: 10.0,
                     ),
@@ -42,22 +59,20 @@ class Signin extends StatelessWidget with ValidationMixin {
               ),
             ),
           ),
-        ),
-      ),
     );
   }
 
-  Widget username() {
+  Widget email() {
     return TextFormField(
       style: TextStyle(color: Colors.teal),
       decoration: InputDecoration(
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
-        labelText: 'Username',
-        hintText: 'Mojo',
+        labelText: 'Email',
+        hintText: 'email@email.com',
       ),
-      validator: validateName,
-      onSaved: (String name) {
-        name = name;
+      validator: validateEmail,
+      onSaved: (String value) {
+        mail = value;
       },
     );
   }
@@ -78,26 +93,47 @@ class Signin extends StatelessWidget with ValidationMixin {
         hintText: '123456',
       ),
       validator: validatePass,
-      onSaved: (String password) {
-        pass = password;
+      onSaved: (String value) {
+        pass = value;
       },
     );
   }
 
   Widget submit(context) {
     return RaisedButton(
+      onPressed: validateSubmit,
       shape: BeveledRectangleBorder(borderRadius: BorderRadius.circular(10)),
       child: Text(
         'Submit',
         style: TextStyle(color: Colors.white, fontSize: 25.0),
       ),
       color: Colors.teal,
-      onPressed: () {
-        Scaffold.of(context).showSnackBar(
-          SnackBar(
-          content:  Text('Signing in...', style: TextStyle(color: Colors.white, fontSize: 12),),
-          backgroundColor: Colors.teal) );
-      },
     );
   }
+
+
+   bool validateSave() {
+    final form = _formKey.currentState;
+    if (form.validate()) {
+      form.save();
+      return true;
+    }
+    return false;
+  }
+
+  validateSubmit()  async{
+    if (validateSave()) {
+      await http.post(
+        'https://peaceful-citadel-94359.herokuapp.com/api/v1/auth/sign_in',
+        body: {
+          "email": mail,
+          "password": pass,
+        }
+      ).then((response){
+        print(response.body);
+        print(response.statusCode);
+      });
+    }
+  }
+
 }
