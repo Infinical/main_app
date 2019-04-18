@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:lib/mixins/validation_mixins.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class Signin extends StatelessWidget {
   @override
@@ -132,6 +134,25 @@ class SigninFormState extends State<SigninForm>  with ValidationMixin {
       ).then((response){
         print(response.body);
         print(response.statusCode);
+
+        if (response.statusCode != 200){
+          var decode = jsonDecode(response.body);
+          var accesErrors = decode["errors"];
+          // var accesMsgs = accesErrors["full_messages"];
+          var encode = JsonEncoder.withIndent("    ").convert(accesErrors);
+          print(encode);
+          List<dynamic> list =accesErrors;
+          for (var l in list) {
+           Fluttertoast.showToast(
+              msg: l,
+              backgroundColor: Colors.teal[100],
+              fontSize: 20,
+              toastLength: Toast.LENGTH_LONG,
+              gravity: ToastGravity.TOP,
+              textColor: Colors.black,
+            );
+          }
+        }
       });
     }
   }

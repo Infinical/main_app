@@ -179,13 +179,9 @@ class SignUpFormState extends State<SignUpForm> with ValidationMixin {
       });
     }
   }
-<<<<<<< HEAD
-}
-=======
 
   redirector(){
      Navigator.push(
                 context, MaterialPageRoute(builder: (context) => Signin()));
           }
   }
->>>>>>> f7750422133aa516b28682b4fcaa164a2688f2f4
