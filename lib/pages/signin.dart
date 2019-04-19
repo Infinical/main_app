@@ -3,6 +3,7 @@ import 'package:lib/mixins/validation_mixins.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:lib/pages/home.dart';
 
 class Signin extends StatelessWidget {
   @override
@@ -152,9 +153,15 @@ class SigninFormState extends State<SigninForm>  with ValidationMixin {
               textColor: Colors.black,
             );
           }
+        } else {
+          Navigator.push(
+                context, MaterialPageRoute(builder: (context) => HomePage()));
         }
       });
     }
+
+     
+          
   }
 
 }
